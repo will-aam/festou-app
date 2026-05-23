@@ -1,0 +1,149 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Festou Dark Theme - Native Dark */
+  --background: #121212;
+  --foreground: #E0E0E0;
+  --card: #1E1E1E;
+  --card-foreground: #E0E0E0;
+  --popover: #1E1E1E;
+  --popover-foreground: #E0E0E0;
+  --primary: #FF7A00;
+  --primary-foreground: #121212;
+  --secondary: #2A9D8F;
+  --secondary-foreground: #121212;
+  --muted: #2A2A2A;
+  --muted-foreground: #9E9E9E;
+  --accent: #2A9D8F;
+  --accent-foreground: #121212;
+  --destructive: #E76F51;
+  --destructive-foreground: #FFFFFF;
+  --border: #333333;
+  --input: #2A2A2A;
+  --ring: #FF7A00;
+  --chart-1: #FF7A00;
+  --chart-2: #2A9D8F;
+  --chart-3: #E76F51;
+  --chart-4: #FFB366;
+  --chart-5: #4ECDC4;
+  --radius: 0.75rem;
+  
+  /* Custom Festou tokens */
+  --festou-orange: #FF7A00;
+  --festou-teal: #2A9D8F;
+  --festou-terracotta: #E76F51;
+  --festou-surface: #1E1E1E;
+  --festou-surface-elevated: #2A2A2A;
+}
+
+.dark {
+  --background: #121212;
+  --foreground: #E0E0E0;
+  --card: #1E1E1E;
+  --card-foreground: #E0E0E0;
+  --popover: #1E1E1E;
+  --popover-foreground: #E0E0E0;
+  --primary: #FF7A00;
+  --primary-foreground: #121212;
+  --secondary: #2A9D8F;
+  --secondary-foreground: #121212;
+  --muted: #2A2A2A;
+  --muted-foreground: #9E9E9E;
+  --accent: #2A9D8F;
+  --accent-foreground: #121212;
+  --destructive: #E76F51;
+  --destructive-foreground: #FFFFFF;
+  --border: #333333;
+  --input: #2A2A2A;
+  --ring: #FF7A00;
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Festou custom colors */
+  --color-festou-orange: var(--festou-orange);
+  --color-festou-teal: var(--festou-teal);
+  --color-festou-terracotta: var(--festou-terracotta);
+  --color-festou-surface: var(--festou-surface);
+  --color-festou-surface-elevated: var(--festou-surface-elevated);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar for PWA feel */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444444;
+}
+
+/* Hide scrollbar for horizontal scroll containers */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Safe area padding for mobile devices */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0);
+}
