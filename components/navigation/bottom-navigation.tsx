@@ -8,12 +8,14 @@ import {
   MapIcon as MapOutline,
   CalendarDaysIcon as CalendarOutline,
   UserIcon as UserOutline,
+  QrCodeIcon as QrOutline,
 } from "@heroicons/react/24/outline";
 import {
   HomeIcon as HomeSolid,
   MapIcon as MapSolid,
   CalendarDaysIcon as CalendarSolid,
   UserIcon as UserSolid,
+  QrCodeIcon as QrSolid,
 } from "@heroicons/react/24/solid";
 import { cn } from "@/lib/utils";
 
@@ -36,6 +38,7 @@ const navItems = [
     iconOutline: CalendarOutline,
     iconSolid: CalendarSolid,
   },
+
   {
     label: "Perfil",
     href: "/perfil",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import {
   UserCircleIcon,
@@ -14,14 +14,19 @@ import {
   SparklesIcon,
   TicketIcon,
   StarIcon,
+  MicrophoneIcon,
+  BanknotesIcon,
+  UsersIcon,
+  CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
 import { users, merchants } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
 import { MerchantDashboard } from "@/components/dashboard/merchant-dashboard";
 
-// Mudamos para o usuário 0 (USER) para demonstrar a conversão B2C -> B2B
 const currentUser = users[0];
 const currentMerchant = merchants[0];
+
+type DevRole = "TOURIST" | "ARTIST" | "MERCHANT";
 
 const menuItems = [
   { icon: HeartIcon, label: "Meus Favoritos", badge: "12" },
@@ -30,29 +35,139 @@ const menuItems = [
   { icon: Cog6ToothIcon, label: "Configurações da Conta" },
 ];
 
+function StatCard({
+  icon: Icon,
+  value,
+  label,
+  iconClassName,
+  valueClassName,
+}: {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  value: string;
+  label: string;
+  iconClassName?: string;
+  valueClassName?: string;
+}) {
+  return (
+    <div className="bg-card border border-border rounded-2xl p-4 flex flex-col items-center justify-center shadow-sm">
+      <Icon
+        className={cn("w-5 h-5 md:w-6 md:h-6 mb-1", iconClassName)}
+        aria-hidden="true"
+      />
+      <p
+        className={cn(
+          "text-lg md:text-xl font-black text-foreground leading-none",
+          valueClassName,
+        )}
+      >
+        {value}
+      </p>
+      <p className="mt-1 text-[9px] md:text-[10px] font-bold text-muted-foreground uppercase text-center leading-tight">
+        {label}
+      </p>
+    </div>
+  );
+}
+
 export function ProfileView() {
   const [showDashboard, setShowDashboard] = useState(false);
+  const [devRole, setDevRole] = useState<DevRole>("TOURIST");
 
-  // Se for comerciante e clicar no dashboard, renderiza o painel
-  if (showDashboard && currentUser.role === "MERCHANT") {
+  const effectiveRole = devRole;
+
+  // ARTISTA e COMERCIANTE: mesma etiqueta PRO (laranja)
+  const isPro = effectiveRole !== "TOURIST";
+
+  const roleLabel = useMemo(() => {
+    return isPro ? "PRO" : "TURISTA";
+  }, [isPro]);
+
+  const rolePillClasses = useMemo(() => {
+    return isPro
+      ? "bg-primary text-primary-foreground"
+      : "bg-muted text-foreground";
+  }, [isPro]);
+
+  if (showDashboard && effectiveRole === "MERCHANT") {
     return <MerchantDashboard onBack={() => setShowDashboard(false)} />;
   }
 
   return (
     <div className="mx-auto w-full max-w-[650px] lg:max-w-[1100px] px-4 pt-20 md:pt-8 space-y-8 pb-24">
-      {" "}
-      {/* Título da Página (Escondido no mobile para economizar espaço, visível no desktop) */}
+      {/* DEV SWITCHER (temporário) */}
+      <div className="bg-card border border-border rounded-2xl p-3 flex flex-col gap-2">
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">
+            Dev: alternar perfil
+          </p>
+          <p className="text-[11px] font-bold text-muted-foreground">
+            (temporário)
+          </p>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              setShowDashboard(false);
+              setDevRole("TOURIST");
+            }}
+            className={cn(
+              "tap rounded-xl px-3 py-2 text-xs font-black border transition-all active:scale-[0.98]",
+              devRole === "TOURIST"
+                ? "bg-foreground text-background border-foreground"
+                : "bg-muted/40 text-foreground border-border",
+            )}
+          >
+            Turista
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setShowDashboard(false);
+              setDevRole("ARTIST");
+            }}
+            className={cn(
+              "tap rounded-xl px-3 py-2 text-xs font-black border transition-all active:scale-[0.98]",
+              devRole === "ARTIST"
+                ? "bg-foreground text-background border-foreground"
+                : "bg-muted/40 text-foreground border-border",
+            )}
+          >
+            Artista
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setShowDashboard(false);
+              setDevRole("MERCHANT");
+            }}
+            className={cn(
+              "tap rounded-xl px-3 py-2 text-xs font-black border transition-all active:scale-[0.98]",
+              devRole === "MERCHANT"
+                ? "bg-foreground text-background border-foreground"
+                : "bg-muted/40 text-foreground border-border",
+            )}
+          >
+            Comerciante
+          </button>
+        </div>
+      </div>
+
+      {/* Título (Desktop) */}
       <div className="hidden lg:block mb-8">
         <h1 className="text-3xl font-black text-foreground">Meu Perfil</h1>
         <p className="text-sm text-muted-foreground">
           Gerencie sua conta e suas preferências
         </p>
       </div>
-      {/* GRELHA RESPONSIVA: 1 coluna no mobile, 2 colunas no desktop */}
+
       <div className="lg:grid lg:grid-cols-12 lg:gap-10">
-        {/* COLUNA ESQUERDA (Desktop): Info do Usuário e Estatísticas */}
+        {/* ESQUERDA */}
         <div className="lg:col-span-5 space-y-6">
-          {/* Card de Identificação */}
+          {/* Identificação */}
           <div className="bg-card border border-border rounded-3xl p-6 flex items-center gap-5 shadow-sm">
             <div className="relative shrink-0">
               {currentUser.avatarUrl ? (
@@ -71,18 +186,14 @@ export function ProfileView() {
                 </div>
               )}
 
-              {/* Badge de Role */}
+              {/* Badge */}
               <div
                 className={cn(
                   "absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg border border-background",
-                  currentUser.role === "MERCHANT"
-                    ? "bg-primary text-primary-foreground"
-                    : currentUser.role === "ADMIN"
-                      ? "bg-destructive text-destructive-foreground"
-                      : "bg-secondary text-secondary-foreground",
+                  rolePillClasses,
                 )}
               >
-                {currentUser.role === "MERCHANT" ? "PRO" : "Turista"}
+                {roleLabel}
               </div>
             </div>
 
@@ -93,7 +204,9 @@ export function ProfileView() {
               <p className="text-sm text-muted-foreground truncate">
                 {currentUser.email}
               </p>
-              {currentUser.role === "MERCHANT" && (
+
+              {/* Só mostra businessName se for MERCHANT */}
+              {effectiveRole === "MERCHANT" && (
                 <p className="text-xs font-bold text-primary mt-1 bg-primary/10 w-fit px-2 py-0.5 rounded-md">
                   {currentMerchant.businessName}
                 </p>
@@ -101,38 +214,75 @@ export function ProfileView() {
             </div>
           </div>
 
-          {/* Estatísticas B2C */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="bg-card border border-border rounded-2xl p-4 flex flex-col items-center justify-center shadow-sm">
-              <TicketIcon className="w-6 h-6 text-secondary mb-1" />
-              <p className="text-xl font-black text-foreground">23</p>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase">
-                Eventos
-              </p>
+          {/* Métricas */}
+          {effectiveRole === "TOURIST" ? (
+            <div className="grid grid-cols-3 gap-3">
+              <StatCard
+                icon={TicketIcon}
+                value="23"
+                label="Eventos"
+                iconClassName="text-secondary"
+              />
+              <StatCard
+                icon={HeartIcon}
+                value="12"
+                label="Favoritos"
+                iconClassName="text-destructive"
+              />
+              <StatCard
+                icon={StarIcon}
+                value="4.9"
+                label="Avaliação"
+                iconClassName="text-primary"
+              />
             </div>
-            <div className="bg-card border border-border rounded-2xl p-4 flex flex-col items-center justify-center shadow-sm">
-              <HeartIcon className="w-6 h-6 text-destructive mb-1" />
-              <p className="text-xl font-black text-foreground">12</p>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase">
-                Favoritos
-              </p>
+          ) : (
+            <div className="grid grid-cols-3 gap-3">
+              <StatCard
+                icon={CalendarDaysIcon}
+                value="8"
+                label="Eventos"
+                iconClassName="text-primary"
+              />
+              <StatCard
+                icon={UsersIcon}
+                value="1.2k"
+                label="Alcance"
+                iconClassName="text-secondary"
+              />
+              <StatCard
+                icon={StarIcon}
+                value="4.9"
+                label="Nota"
+                iconClassName="text-primary"
+              />
+              <StatCard
+                icon={TicketIcon}
+                value="320"
+                label="Ingressos"
+                iconClassName="text-secondary"
+              />
+              <StatCard
+                icon={BanknotesIcon}
+                value="R$ 9.4k"
+                label="Receita"
+                iconClassName="text-secondary"
+              />
+              <StatCard
+                icon={MicrophoneIcon}
+                value="3"
+                label="Ao vivo"
+                iconClassName="text-destructive"
+              />
             </div>
-            <div className="bg-card border border-border rounded-2xl p-4 flex flex-col items-center justify-center shadow-sm">
-              <StarIcon className="w-6 h-6 text-primary mb-1" />
-              <p className="text-xl font-black text-foreground">4.9</p>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase">
-                Avaliação
-              </p>
-            </div>
-          </div>
+          )}
         </div>
 
-        {/* COLUNA DIREITA (Desktop): Conversão B2B, Menus e Logout */}
+        {/* DIREITA */}
         <div className="lg:col-span-7 space-y-6 mt-8 lg:mt-0">
-          {/* 🌟 O GRANDE MOTOR DE CONVERSÃO: Transformando Usuário em Cliente */}
-          {currentUser.role !== "MERCHANT" ? (
+          {/* Conversão / Dashboard */}
+          {effectiveRole !== "MERCHANT" ? (
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/20 via-card to-secondary/10 border border-primary/30 p-1 shadow-lg group">
-              {/* Efeitos de luz de fundo */}
               <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 blur-3xl rounded-full group-hover:bg-primary/30 transition-all" />
 
               <div className="bg-card/60 backdrop-blur-md rounded-[22px] p-5 relative z-10 flex flex-col sm:flex-row items-center gap-5">
@@ -160,7 +310,6 @@ export function ProfileView() {
               </div>
             </div>
           ) : (
-            /* Botão de Acesso ao Dashboard para quem JÁ É cliente */
             <button
               onClick={() => setShowDashboard(true)}
               className="tap w-full relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary/80 border border-primary p-5 flex items-center gap-5 shadow-lg group transition-all active:scale-[0.98]"
@@ -182,7 +331,7 @@ export function ProfileView() {
             </button>
           )}
 
-          {/* Menu de opções (Estilo Apple Settings) */}
+          {/* Menu */}
           <div className="bg-card border border-border rounded-3xl overflow-hidden shadow-sm">
             {menuItems.map((item, index) => (
               <button
@@ -208,13 +357,13 @@ export function ProfileView() {
             ))}
           </div>
 
-          {/* Botão de logout */}
+          {/* Logout */}
           <button className="tap w-full flex items-center justify-center gap-2 py-4 text-destructive font-bold text-sm bg-destructive/5 hover:bg-destructive/10 border border-destructive/20 rounded-2xl transition-all duration-200 active:scale-[0.98]">
             <ArrowRightStartOnRectangleIcon className="w-5 h-5" />
             Sair da Conta
           </button>
 
-          {/* Versão do app */}
+          {/* Versão */}
           <div className="text-center pt-2">
             <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
               Festou v1.0.0
