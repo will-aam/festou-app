@@ -1,85 +1,123 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   HomeIcon as HomeOutline,
   MapIcon as MapOutline,
   CalendarDaysIcon as CalendarOutline,
   UserIcon as UserOutline,
-} from '@heroicons/react/24/outline'
+} from "@heroicons/react/24/outline";
 import {
   HomeIcon as HomeSolid,
   MapIcon as MapSolid,
   CalendarDaysIcon as CalendarSolid,
   UserIcon as UserSolid,
-} from '@heroicons/react/24/solid'
-import { cn } from '@/lib/utils'
+} from "@heroicons/react/24/solid";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   {
-    label: 'Início',
-    href: '/',
+    label: "Início",
+    href: "/",
     iconOutline: HomeOutline,
     iconSolid: HomeSolid,
   },
   {
-    label: 'Mapa',
-    href: '/mapa',
+    label: "Mapa",
+    href: "/mapa",
     iconOutline: MapOutline,
     iconSolid: MapSolid,
   },
   {
-    label: 'Agenda',
-    href: '/agenda',
+    label: "Agenda",
+    href: "/agenda",
     iconOutline: CalendarOutline,
     iconSolid: CalendarSolid,
   },
   {
-    label: 'Perfil',
-    href: '/perfil',
+    label: "Perfil",
+    href: "/perfil",
     iconOutline: UserOutline,
     iconSolid: UserSolid,
   },
-]
+];
 
 export function BottomNavigation() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-t border-border safe-area-bottom">
-      <div className="flex items-center justify-around px-2 py-2 max-w-lg mx-auto">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href
-          const Icon = isActive ? item.iconSolid : item.iconOutline
-
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-3 py-2 rounded-xl transition-all duration-200',
-                isActive 
-                  ? 'text-primary' 
-                  : 'text-muted-foreground hover:text-foreground'
-              )}
-            >
-              <Icon 
+    <>
+      {/* 📱 VERSÃO MOBILE */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-t border-border safe-area-bottom">
+        <div className="flex items-center justify-around px-2 py-2 max-w-lg mx-auto">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = isActive ? item.iconSolid : item.iconOutline;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
                 className={cn(
-                  'w-6 h-6 transition-all duration-200',
-                  isActive && 'scale-110'
-                )} 
-              />
-              <span className={cn(
-                'text-xs mt-1 font-medium transition-all duration-200',
-                isActive && 'text-primary'
-              )}>
-                {item.label}
-              </span>
-            </Link>
-          )
-        })}
-      </div>
-    </nav>
-  )
+                  "flex flex-col items-center justify-center min-w-16 min-h-11 px-3 py-2 rounded-xl",
+                  isActive
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <Icon
+                  className={cn(
+                    "w-6 h-6 transition-all",
+                    isActive && "scale-110",
+                  )}
+                />
+                <span className="text-xs mt-1 font-medium">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+
+      {/* 💻 VERSÃO DESKTOP: Sidebar Limpa */}
+      <aside className="hidden md:flex fixed left-0 top-0 z-50 h-screen w-65 flex-col border-r border-border bg-background px-5 py-8">
+        <div className="mb-10 px-2 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shadow-lg">
+            <span className="text-primary-foreground font-black text-xl">
+              F
+            </span>
+          </div>
+          <span className="text-2xl font-bold text-foreground">
+            fest<span className="text-primary">ou</span>
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = isActive ? item.iconSolid : item.iconOutline;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "group flex items-center gap-4 rounded-xl px-3 py-3.5 transition-all hover:bg-muted/50",
+                  isActive
+                    ? "font-bold text-foreground"
+                    : "font-medium text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <Icon
+                  className={cn(
+                    "w-7 h-7 transition-all",
+                    isActive ? "text-primary" : "group-hover:scale-110",
+                  )}
+                />
+                <span className="text-[17px]">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </aside>
+    </>
+  );
 }

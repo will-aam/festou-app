@@ -1,25 +1,37 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import { MapPinIcon, ClockIcon, UsersIcon, TagIcon } from '@heroicons/react/24/outline'
-import { FireIcon } from '@heroicons/react/24/solid'
-import { Event, getMerchantById, getPromotionsByEvent, formatPrice, formatDate } from '@/lib/mock-data'
-import { cn } from '@/lib/utils'
+import Image from "next/image";
+import {
+  MapPinIcon,
+  ClockIcon,
+  UsersIcon,
+  TagIcon,
+} from "@heroicons/react/24/outline";
+import { FireIcon } from "@heroicons/react/24/solid";
+import {
+  Event,
+  getMerchantById,
+  getPromotionsByEvent,
+  formatPrice,
+  formatDate,
+} from "@/lib/mock-data";
+import { cn } from "@/lib/utils";
 
 interface EventCardProps {
-  event: Event
-  distance?: string
+  event: Event;
+  distance?: string;
 }
 
-export function EventCard({ event, distance = '1.2km' }: EventCardProps) {
-  const merchant = getMerchantById(event.merchantId)
-  const promotions = getPromotionsByEvent(event.id)
-  const hasPromotion = promotions.length > 0 && promotions.some(p => p.active)
+export function EventCard({ event, distance = "1.2km" }: EventCardProps) {
+  const merchant = getMerchantById(event.merchantId);
+  const promotions = getPromotionsByEvent(event.id);
+  const hasPromotion =
+    promotions.length > 0 && promotions.some((p) => p.active);
 
   return (
     <article className="bg-card rounded-2xl overflow-hidden border border-border transition-all duration-200 hover:border-primary/50 active:scale-[0.98]">
       {/* Imagem de capa */}
-      <div className="relative aspect-[16/10] overflow-hidden">
+      <div className="relative aspect-16/10 overflow-hidden">
         <Image
           src={event.imageUrl}
           alt={event.title}
@@ -27,7 +39,7 @@ export function EventCard({ event, distance = '1.2km' }: EventCardProps) {
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-        
+
         {/* Badge de status */}
         <div className="absolute top-3 left-3 flex gap-2">
           {event.isLive && (
@@ -52,7 +64,7 @@ export function EventCard({ event, distance = '1.2km' }: EventCardProps) {
         </div>
 
         {/* Gradiente */}
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-card via-transparent to-transparent" />
       </div>
 
       {/* Conteúdo */}
@@ -69,11 +81,13 @@ export function EventCard({ event, distance = '1.2km' }: EventCardProps) {
               </p>
             )}
           </div>
-          <div className="flex-shrink-0 text-right">
-            <span className={cn(
-              'text-lg font-bold',
-              event.price === 0 ? 'text-secondary' : 'text-foreground'
-            )}>
+          <div className="shrink-0 text-right">
+            <span
+              className={cn(
+                "text-lg font-bold",
+                event.price === 0 ? "text-secondary" : "text-foreground",
+              )}
+            >
               {formatPrice(event.price || 0)}
             </span>
           </div>
@@ -107,10 +121,10 @@ export function EventCard({ event, distance = '1.2km' }: EventCardProps) {
         )}
 
         {/* Botão de ação */}
-        <button className="w-full py-3 px-4 bg-primary text-primary-foreground font-semibold rounded-xl min-h-[44px] transition-all duration-200 hover:bg-primary/90 active:scale-[0.98]">
+        <button className="w-full py-3 px-4 bg-primary text-primary-foreground font-semibold rounded-xl min-h-11 transition-all duration-200 hover:bg-primary/90 active:scale-[0.98]">
           Ver Detalhes
         </button>
       </div>
     </article>
-  )
+  );
 }
