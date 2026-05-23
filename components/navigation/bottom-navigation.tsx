@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   HomeIcon as HomeOutline,
@@ -79,13 +80,16 @@ export function BottomNavigation() {
       </nav>
 
       {/* 💻 VERSÃO DESKTOP: Sidebar Limpa */}
-      <aside className="hidden md:flex fixed left-0 top-0 z-50 h-screen w-65 flex-col border-r border-border bg-background px-5 py-8">
+      <aside className="hidden md:flex fixed left-0 top-0 z-50 h-screen w-[260px] flex-col border-r border-border bg-background px-5 py-8">
+        {/* LOGO ATUALIZADA NO DESKTOP */}
         <div className="mb-10 px-2 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shadow-lg">
-            <span className="text-primary-foreground font-black text-xl">
-              F
-            </span>
-          </div>
+          <Image
+            src="/festou.png"
+            alt="Logo Festou"
+            width={40}
+            height={40}
+            className="object-contain"
+          />
           <span className="text-2xl font-bold text-foreground">
             fest<span className="text-primary">ou</span>
           </span>

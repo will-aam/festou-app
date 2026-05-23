@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { BellIcon } from "@heroicons/react/24/outline";
 
 export function FloatingHeader() {
@@ -8,9 +9,16 @@ export function FloatingHeader() {
     <header className="md:hidden fixed top-0 left-0 right-0 z-50 safe-area-top">
       <div className="flex items-center justify-between px-4 py-3 bg-background/80 backdrop-blur-lg">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">F</span>
-          </div>
+          {/* A SUA LOGO AQUI */}
+          <Image
+            src="/festou.png" /* Troque para o nome exato do seu arquivo na pasta public (ex: /logo.png, /icone.svg) */
+            alt="Logo Festou"
+            width={32}
+            height={32}
+            className="object-contain"
+          />
+
+          {/* O texto festou ao lado da logo (opcional, se a sua logo já tiver o texto, você pode apagar esse <span> inteiro) */}
           <span className="text-xl font-bold text-foreground">
             fest<span className="text-primary">ou</span>
           </span>

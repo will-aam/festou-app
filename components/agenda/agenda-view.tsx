@@ -37,7 +37,8 @@ export function AgendaView() {
 
   return (
     /* ⚡ MÁGICA RECEPTIVA: max-w-[1100px] no desktop para preencher as laterais de forma elegante */
-    <div className="mx-auto w-full max-w-[650px] lg:max-w-[1100px] px-4 pt-4 md:pt-8 space-y-8 pb-24">
+    <div className="mx-auto w-full max-w-[650px] lg:max-w-[1100px] px-4 pt-20 md:pt-8 space-y-8 pb-24">
+      {" "}
       {/* HEADER DA AGENDA */}
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-black text-foreground">Meus Ingressos</h1>
@@ -45,7 +46,6 @@ export function AgendaView() {
           Gerencie seus acessos e entradas no Forró Caju
         </p>
       </div>
-
       {/* DASHBOARD RÁPIDO (Mantido compacto para não esticar muito) */}
       <div className="grid grid-cols-2 gap-4 max-w-[650px]">
         <div className="bg-gradient-to-br from-secondary/20 to-card border border-secondary/30 rounded-2xl p-4 shadow-sm relative overflow-hidden group">
@@ -78,7 +78,6 @@ export function AgendaView() {
           </div>
         </div>
       </div>
-
       {/* LISTA DE EVENTOS CONFIRMADOS (GRADE DE 3 NO DESKTOP) */}
       {confirmedEvents.length > 0 && (
         <section className="space-y-4">
@@ -97,7 +96,6 @@ export function AgendaView() {
           </div>
         </section>
       )}
-
       {/* LISTA DE EVENTOS PENDENTES (GRADE DE 3 NO DESKTOP) */}
       {pendingEvents.length > 0 && (
         <section className="space-y-4 pt-4 border-t border-border/50">
@@ -113,7 +111,6 @@ export function AgendaView() {
           </div>
         </section>
       )}
-
       {/* ESTADO VAZIO */}
       {userEvents.length === 0 && (
         <div className="flex flex-col items-center justify-center py-16 text-center bg-card border border-dashed border-border rounded-3xl mt-4">
