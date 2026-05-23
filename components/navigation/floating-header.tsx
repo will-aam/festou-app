@@ -20,7 +20,7 @@ export function FloatingHeader() {
 
           {/* O texto festou ao lado da logo (opcional, se a sua logo já tiver o texto, você pode apagar esse <span> inteiro) */}
           <span className="text-xl font-bold text-foreground">
-            fest<span className="text-primary">ou</span>
+            Fest<span className="text-primary">ou</span>
           </span>
         </Link>
 

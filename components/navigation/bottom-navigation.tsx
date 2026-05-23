@@ -94,7 +94,7 @@ export function BottomNavigation() {
             className="object-contain"
           />
           <span className="text-2xl font-bold text-foreground">
-            fest<span className="text-primary">ou</span>
+            Fest<span className="text-primary">ou</span>
           </span>
         </div>
 
