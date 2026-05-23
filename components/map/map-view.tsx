@@ -3,12 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import {
-  MapPinIcon,
-  ClockIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/outline";
+import { MapPinIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { FireIcon, MapPinIcon as LocateIcon } from "@heroicons/react/24/solid";
 import {
   events,
@@ -33,18 +28,6 @@ export function MapView() {
   const [loadingGPS, setLoadingGPS] = useState(false);
 
   const selectedEvent = events[carouselIndex];
-
-  const handlePrevious = () => {
-    setUserCoords(null);
-    const newIndex = carouselIndex > 0 ? carouselIndex - 1 : events.length - 1;
-    setCarouselIndex(newIndex);
-  };
-
-  const handleNext = () => {
-    setUserCoords(null);
-    const newIndex = carouselIndex < events.length - 1 ? carouselIndex + 1 : 0;
-    setCarouselIndex(newIndex);
-  };
 
   const handleLocateUser = () => {
     if (!navigator.geolocation) {
@@ -105,48 +88,38 @@ export function MapView() {
           />
         </button>
 
-        {/* Card de eventos */}
-        <div className="w-full max-w-[450px]">
-          <EventMapCard event={selectedEvent} />
-        </div>
-
-        {/* 🎮 CONTROLES DE NAVEGAÇÃO */}
-        <div className="flex items-center justify-between w-full max-w-[450px] px-1 mt-1">
-          <button
-            onClick={handlePrevious}
-            className="tap w-10 h-10 bg-card/95 backdrop-blur-md rounded-full flex items-center justify-center border border-border shadow-lg transition-all active:scale-90"
-            aria-label="Evento anterior"
-          >
-            <ChevronLeftIcon className="w-5 h-5 text-foreground" />
-          </button>
-
-          {/* Indicadores - Agora Ocultos no Desktop (md:hidden) */}
-          <div className="flex justify-center gap-1.5 md:hidden">
-            {events.map((_, index) => (
-              <button
-                key={index}
+        {/* MOBILE: só cardzinhos por swipe (sem setas, sem indicadores) */}
+        <div className="w-full md:hidden">
+          <div className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory">
+            {events.map((event, index) => (
+              // IMPORTANTE: não pode ser <button>, porque dentro do card já tem um <button>
+              <div
+                key={event.id}
+                className="snap-center shrink-0 w-[92%] max-w-[450px] text-left"
+                role="button"
+                tabIndex={0}
+                aria-label={`Selecionar ${event.title}`}
                 onClick={() => {
                   setUserCoords(null);
                   setCarouselIndex(index);
                 }}
-                className={cn(
-                  "w-2 h-2 rounded-full transition-all duration-300",
-                  index === carouselIndex && !userCoords
-                    ? "bg-primary w-6"
-                    : "bg-card border border-border",
-                )}
-                aria-label={`Ir para evento ${index + 1}`}
-              />
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setUserCoords(null);
+                    setCarouselIndex(index);
+                  }
+                }}
+              >
+                <EventMapCard event={event} />
+              </div>
             ))}
           </div>
+        </div>
 
-          <button
-            onClick={handleNext}
-            className="tap w-10 h-10 bg-card/95 backdrop-blur-md rounded-full flex items-center justify-center border border-border shadow-lg transition-all active:scale-90"
-            aria-label="Próximo evento"
-          >
-            <ChevronRightIcon className="w-5 h-5 text-foreground" />
-          </button>
+        {/* DESKTOP: mantém 1 card */}
+        <div className="hidden md:block w-full max-w-[450px]">
+          <EventMapCard event={selectedEvent} />
         </div>
       </div>
     </div>
