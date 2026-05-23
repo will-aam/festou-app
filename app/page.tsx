@@ -64,9 +64,9 @@ const trendingItems = [
 
 export default function HomePage() {
   return (
-    <div className="mx-auto flex w-full max-w-275ify-center gap-8 px-4 md:px-6 lg:px-8">
+    <div className="mx-auto flex w-full max-w-275 justify-center gap-8 px-4 md:px-6 lg:px-8">
       {/* COLUNA CENTRAL: O Feed ampliado no computador */}
-      <div className="flex-1 w-full max-w-162.5 pb-20 pt-4 md:pb-8 md:pt-8 min-h-screen">
+      <div className="flex-1 w-full max-w-[650px] pb-20 pt-4 md:pb-8 md:pt-8 min-h-screen">
         <FeedHeader />
         <EventFeed />
       </div>
@@ -110,7 +110,7 @@ export default function HomePage() {
           </div>
 
           {/* Banner B2B Monetização */}
-          <div className="rounded-2xl bg-linear-to-tr from-primary/10 to-secondary/10 border border-primary/20 p-5 shadow-sm">
+          <div className="rounded-2xl bg-gradient-to-tr from-primary/10 to-secondary/10 border border-primary/20 p-5 shadow-sm">
             <h4 className="font-bold text-foreground">
               É dono de um estabelecimento?
             </h4>
