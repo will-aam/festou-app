@@ -1,11 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import {
-  PlusIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-} from "@heroicons/react/24/solid";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 type Story = {
   id: string;
@@ -15,7 +10,6 @@ type Story = {
   seen?: boolean;
 };
 
-// Dados mockados focados no HackAiá
 const stories: Story[] = [
   { id: "me", name: "Seu story", avatar: "https://i.pravatar.cc/100?img=12" },
   {
@@ -52,114 +46,78 @@ const stories: Story[] = [
   { id: "s6", name: "Quadrilhas", avatar: "https://i.pravatar.cc/100?img=15" },
 ];
 
-export function StoryRail() {
-  // Estado que controla se o Rail está recolhido (false) ou expandido (true)
-  const [isExpanded, setIsExpanded] = useState(false);
-
+export function StoryRail({
+  isExpanded,
+  setIsExpanded,
+}: {
+  isExpanded: boolean;
+  setIsExpanded: (v: boolean) => void;
+}) {
   return (
     <div
-      className={`w-full pb-4 pt-1 -mx-4 px-4 md:mx-0 md:px-0 transition-all duration-300 ${
-        isExpanded ? "overflow-x-auto no-scrollbar" : "overflow-hidden"
+      className={`w-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden ${
+        isExpanded
+          ? "max-h-[120px] opacity-100 pt-2 pb-3"
+          : "max-h-0 opacity-0 pt-0 pb-0"
       }`}
     >
-      <div className="flex items-start gap-4 w-max">
-        {/* 1. SEU STORY (Sempre visível) */}
-        <button className="tap flex flex-col items-center gap-1.5 transition-transform active:scale-95 w-[68px] shrink-0">
-          <div className="relative">
-            <div className="grid h-16 w-16 place-items-center rounded-full p-[2px] bg-gradient-to-tr from-primary to-secondary">
-              <div className="h-full w-full overflow-hidden rounded-full border-[2.5px] border-background">
-                <img
-                  src={stories[0].avatar}
-                  alt={stories[0].name}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-            <span className="absolute bottom-0 right-0 grid h-5 w-5 place-items-center rounded-full border-2 border-background bg-primary">
-              <PlusIcon className="h-3 w-3 text-primary-foreground" />
-            </span>
-          </div>
-          <span className="line-clamp-1 w-full text-center text-[10px] font-medium text-foreground/90">
-            {stories[0].name}
-          </span>
-        </button>
-        {/* 2. SETA DE EXPANDIR (Visível apenas quando recolhido) */}
-        {!isExpanded && (
+      <div className="flex items-start gap-3 overflow-x-auto no-scrollbar px-4 md:px-0">
+        {stories.map((s, i) => (
           <button
-            onClick={() => setIsExpanded(true)}
-            className="tap flex flex-col items-center gap-1.5 w-[68px] shrink-0 active:scale-95 group"
-            aria-label="Expandir destaques"
+            key={s.id}
+            className="tap flex flex-col items-center gap-1.5 transition-all active:scale-95 w-[64px] shrink-0"
+            style={{
+              transitionDelay: isExpanded ? `${i * 40}ms` : "0ms",
+              opacity: isExpanded ? 1 : 0,
+              transform: isExpanded ? "translateY(0)" : "translateY(-12px)",
+              transitionProperty: "opacity, transform",
+              transitionDuration: "300ms",
+              transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
           >
-            {/* Removemos o border-dashed, border-2 e bg-card. Deixamos transparente. */}
-            <div className="grid h-16 w-16 place-items-center bg-transparent">
-              {/* Ícone maior (w-8 h-8), animando sozinho (animate-pulse) e deslizando no hover */}
-              <ChevronRightIcon className="w-8 h-8 text-muted-foreground/50 group-hover:text-primary transition-all duration-300 group-hover:translate-x-1.5 animate-pulse" />
-            </div>
-            <span className="line-clamp-1 w-full text-center text-[10px] font-medium text-muted-foreground/60 group-hover:text-primary transition-colors">
-              Ver mais
-            </span>
-          </button>
-        )}
-
-        {/* 3. LISTA RECOLHÍVEL (Aparece deslizando para a direita) */}
-        <div
-          className={`flex items-start gap-4 transition-all duration-500 ease-in-out ${
-            isExpanded
-              ? "max-w-[1500px] opacity-100"
-              : "max-w-0 opacity-0 overflow-hidden"
-          }`}
-        >
-          {stories.slice(1).map((s) => (
-            <button
-              key={s.id}
-              className="tap flex flex-col items-center gap-1.5 transition-transform active:scale-95 w-[68px] shrink-0"
-            >
-              <div className="relative">
-                <div
-                  className={`grid h-16 w-16 place-items-center rounded-full p-[2px] ${
-                    s.live
+            <div className="relative">
+              <div
+                className={`grid h-14 w-14 place-items-center rounded-full p-[2px] ${
+                  i === 0
+                    ? "bg-gradient-to-tr from-primary to-secondary"
+                    : s.live
                       ? "bg-gradient-to-tr from-destructive via-primary to-secondary"
                       : s.seen
                         ? "bg-muted"
                         : "bg-gradient-to-tr from-primary to-secondary"
-                  }`}
-                >
-                  <div className="h-full w-full overflow-hidden rounded-full border-[2.5px] border-background">
-                    <img
-                      src={s.avatar}
-                      alt={s.name}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
+                }`}
+              >
+                <div className="h-full w-full overflow-hidden rounded-full border-[2px] border-background">
+                  <img
+                    src={s.avatar}
+                    alt={s.name}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
-                {s.live && (
-                  <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 rounded-full bg-destructive px-1.5 py-[1px] text-[9px] font-bold uppercase tracking-wide text-destructive-foreground ring-2 ring-background">
-                    Live
-                  </span>
-                )}
               </div>
-              <span className="line-clamp-1 w-full text-center text-[10px] font-medium text-foreground/90">
-                {s.name}
-              </span>
-            </button>
-          ))}
-
-          {/* 4. SETA DE RECOLHER (Aparece no final da lista quando expandido) */}
-          {isExpanded && (
-            <button
-              onClick={() => setIsExpanded(false)}
-              className="tap flex flex-col items-center gap-1.5 w-[68px] shrink-0 active:scale-95 group transition-all"
-              aria-label="Recolher destaques"
-            >
-              <div className="grid h-16 w-16 place-items-center rounded-full border border-border bg-card shadow-sm hover:bg-muted transition-all">
-                <ChevronLeftIcon className="w-5 h-5 text-muted-foreground" />
-              </div>
-              <span className="line-clamp-1 w-full text-center text-[10px] font-medium text-muted-foreground">
-                Recolher
-              </span>
-            </button>
-          )}
-        </div>
+              {i === 0 && (
+                <span className="absolute bottom-0 right-0 grid h-4 w-4 place-items-center rounded-full border-[1.5px] border-background bg-primary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="h-2.5 w-2.5 text-primary-foreground"
+                  >
+                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                  </svg>
+                </span>
+              )}
+              {s.live && (
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-destructive px-1.5 py-[0.5px] text-[8px] font-bold uppercase tracking-wide text-destructive-foreground ring-[1.5px] ring-background">
+                  Live
+                </span>
+              )}
+            </div>
+            <span className="line-clamp-1 w-full text-center text-[10px] font-medium text-foreground/80">
+              {i === 0 ? "Seu story" : s.name}
+            </span>
+          </button>
+        ))}
       </div>
     </div>
   );
