@@ -23,16 +23,14 @@ export const viewport: Viewport = {
   userScalable: false,
   viewportFit: "cover",
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="bg-background dark">
-      {/* md:pl-[260px] apenas reserva o espaço lateral da navegação no desktop */}
-      <body className="font-sans antialiased bg-background text-foreground min-h-screen md:pl-65">
+    <html lang="pt-BR" className="bg-background dark no-scrollbar">
+      <body className="font-sans antialiased bg-background text-foreground min-h-screen md:pl-[260px] no-scrollbar">
         <FloatingHeader />
 
         <main className="w-full min-h-screen">{children}</main>
