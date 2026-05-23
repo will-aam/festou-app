@@ -70,7 +70,7 @@ export interface MerchantMetrics {
   weeklyClicks: number[];
 }
 
-// Dados mockados
+/// ==================== DADOS MOCKADOS - FORRÓ CAJU 2026 - ARACAJU/SE ====================
 
 export const users: User[] = [
   {
@@ -80,17 +80,17 @@ export const users: User[] = [
     role: "USER",
     avatarUrl:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
-    phone: "(11) 98765-4321",
+    phone: "(79) 98765-4321",
     createdAt: "2024-01-15T10:00:00Z",
   },
   {
     id: "user-2",
-    name: "Carlos Mendes",
-    email: "carlos@cervejaria.com",
+    name: "João Pedro Santos",
+    email: "joao@forrocaju.com",
     role: "MERCHANT",
     avatarUrl:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    phone: "(11) 91234-5678",
+    phone: "(79) 91234-5678",
     createdAt: "2024-02-20T14:30:00Z",
   },
   {
@@ -105,11 +105,11 @@ export const users: User[] = [
   {
     id: "user-4",
     name: "Roberto Almeida",
-    email: "roberto@galeria.com",
+    email: "roberto@eventos.com",
     role: "MERCHANT",
     avatarUrl:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    phone: "(11) 99876-5432",
+    phone: "(79) 99876-5432",
     createdAt: "2024-03-10T16:45:00Z",
   },
 ];
@@ -118,251 +118,155 @@ export const merchants: Merchant[] = [
   {
     id: "merchant-1",
     userId: "user-2",
-    businessName: "Cervejaria Artesanal",
-    category: "Bar & Cervejaria",
+    businessName: "Forró Caju",
+    category: "Evento Junino / Forró",
     description:
-      "A melhor cerveja artesanal da região com ambiente descontraído e música ao vivo aos finais de semana.",
+      "O maior festival de forró de Aracaju. Tradição, cultura e muito arrasta-pé!",
     logoUrl:
-      "https://images.unsplash.com/photo-1608270586620-248524c67de9?w=200&h=200&fit=crop",
-    address: "Rua Augusta, 1234 - Consolação, São Paulo",
-    latitude: -23.5505,
-    longitude: -46.6333,
-    rating: 4.8,
-    totalReviews: 324,
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZRE6Rt7j79bgzaoNmtyAj-K-vqxrWRuF0Kw&s",
+    address: "Orla de Atalaia - Aracaju, SE",
+    latitude: -10.9472,
+    longitude: -37.0731,
+    rating: 4.9,
+    totalReviews: 3240,
   },
   {
     id: "merchant-2",
     userId: "user-4",
-    businessName: "Galeria Arte Urbana",
-    category: "Arte & Cultura",
+    businessName: "Forró do Portela",
+    category: "Forró & Arraial",
     description:
-      "Espaço dedicado à arte contemporânea brasileira com exposições rotativas e workshops.",
+      "Festa tradicional com pista para 2000 pessoas e camarote premium.",
     logoUrl:
-      "https://images.unsplash.com/photo-1531243269054-5ebf6f34081e?w=200&h=200&fit=crop",
-    address: "Av. Paulista, 900 - Bela Vista, São Paulo",
-    latitude: -23.5614,
-    longitude: -46.6558,
-    rating: 4.9,
-    totalReviews: 189,
-  },
-  {
-    id: "merchant-3",
-    userId: "user-2",
-    businessName: "Café & Coworking Hub",
-    category: "Café & Trabalho",
-    description:
-      "Café especial combinado com espaço de coworking. Ideal para freelancers e nômades digitais.",
-    logoUrl:
-      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=200&h=200&fit=crop",
-    address: "Rua Oscar Freire, 456 - Jardins, São Paulo",
-    latitude: -23.5629,
-    longitude: -46.6698,
+      "https://i.pinimg.com/736x/25/84/5f/25845fcb94374629d17325755a613ebd.jpg",
+    address: "Pista de Atalaia - Aracaju, SE",
+    latitude: -10.9505,
+    longitude: -37.0708,
     rating: 4.7,
-    totalReviews: 256,
-  },
-  {
-    id: "merchant-4",
-    userId: "user-4",
-    businessName: "Food Park Pinheiros",
-    category: "Gastronomia",
-    description:
-      "O melhor da comida de rua reunido em um só lugar. Diversos food trucks e área kids.",
-    logoUrl:
-      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=200&h=200&fit=crop",
-    address: "Rua dos Pinheiros, 789 - Pinheiros, São Paulo",
-    latitude: -23.5667,
-    longitude: -46.6876,
-    rating: 4.6,
-    totalReviews: 512,
+    totalReviews: 1876,
   },
 ];
 
 export const events: Event[] = [
   {
     id: "event-1",
-    title: "Festival de Jazz ao Vivo",
+    title: "Forró Caju 2026 - Abertura Oficial",
     description:
-      "Uma noite especial com os melhores músicos de jazz da cidade. Entrada gratuita para os primeiros 50 clientes.",
-    latitude: -23.5505,
-    longitude: -46.6333,
+      "Grande abertura do Forró Caju 2026 com as melhores atrações do Nordeste. Venha viver o autêntico forró sergipano!",
+    latitude: -10.9472,
+    longitude: -37.0731,
     merchantId: "merchant-1",
-    startsAt: "2024-12-20T20:00:00Z",
-    endsAt: "2024-12-21T02:00:00Z",
+    startsAt: "2026-06-01T20:00:00Z",
+    endsAt: "2026-06-02T04:00:00Z",
     imageUrl:
-      "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800&h=500&fit=crop",
-    category: "Música",
-    price: 0,
+      "https://www.aracaju.se.gov.br/userfiles/noticia_imagens/202405/105886/forrocajubairros_1.jpg",
+    category: "Forró",
+    price: 50,
     isLive: true,
-    attendees: 127,
-    maxAttendees: 200,
+    attendees: 12450,
+    maxAttendees: 20000,
   },
   {
     id: "event-2",
-    title: "Exposição: Cores do Brasil",
+    title: "Noite do Forró das Antigas",
     description:
-      "Mostra coletiva com 15 artistas brasileiros contemporâneos. Vernissage com coquetel de abertura.",
-    latitude: -23.5614,
-    longitude: -46.6558,
+      "Moreno Show e Élida Emanuela em uma noite especial de forró raiz.",
+    latitude: -10.9505,
+    longitude: -37.0708,
     merchantId: "merchant-2",
-    startsAt: "2024-12-18T18:00:00Z",
-    endsAt: "2025-01-18T21:00:00Z",
+    startsAt: "2025-05-28T20:00:00Z",
+    endsAt: "2025-05-29T02:00:00Z",
     imageUrl:
-      "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=800&h=500&fit=crop",
-    category: "Arte",
-    price: 25,
-    attendees: 89,
-    maxAttendees: 150,
+      "https://i.pinimg.com/736x/25/84/5f/25845fcb94374629d17325755a613ebd.jpg",
+    category: "Forró",
+    price: 40,
+    attendees: 1850,
+    maxAttendees: 2150,
   },
   {
     id: "event-3",
-    title: "Workshop de Latte Art",
-    description:
-      "Aprenda técnicas profissionais de latte art com nosso barista campeão. Inclui certificado.",
-    latitude: -23.5629,
-    longitude: -46.6698,
-    merchantId: "merchant-3",
-    startsAt: "2024-12-22T14:00:00Z",
-    endsAt: "2024-12-22T17:00:00Z",
+    title: "Forró Quente",
+    description: "Thiago Carvalho, Vitor Fernandez e Fabinho Testado ao vivo.",
+    latitude: -10.9472,
+    longitude: -37.0731,
+    merchantId: "merchant-1",
+    startsAt: "2026-06-15T21:00:00Z",
+    endsAt: "2026-06-16T03:00:00Z",
     imageUrl:
-      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=500&fit=crop",
-    category: "Gastronomia",
-    price: 150,
-    attendees: 8,
-    maxAttendees: 12,
+      "https://img.criativodahora.com.br/2024/04/criativo-661fef2d155c7img-2024-04-17661fef2d155cd.jpg",
+    category: "Forró",
+    price: 60,
+    attendees: 3200,
+    maxAttendees: 5000,
   },
   {
     id: "event-4",
-    title: "Festival Gastronômico de Inverno",
+    title: "Arraía do Forró",
     description:
-      "Edição especial com pratos quentes e confortantes. Mais de 20 food trucks participantes.",
-    latitude: -23.5667,
-    longitude: -46.6876,
-    merchantId: "merchant-4",
-    startsAt: "2024-12-23T12:00:00Z",
-    endsAt: "2024-12-23T22:00:00Z",
+      "Eric Land, Henry Freitas e Flaguim Moral - Uma das noites mais esperadas!",
+    latitude: -10.9505,
+    longitude: -37.0708,
+    merchantId: "merchant-2",
+    startsAt: "2026-06-03T22:00:00Z",
+    endsAt: "2026-06-04T04:00:00Z",
     imageUrl:
-      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=500&fit=crop",
-    category: "Gastronomia",
-    price: 0,
-    isLive: false,
-    attendees: 342,
-    maxAttendees: 500,
+      "https://i.pinimg.com/736x/5d/d5/d5/5dd5d55556fce943ee0d60ef6ba65c3a.jpg",
+    category: "Forró",
+    price: 70,
+    attendees: 4200,
+    maxAttendees: 6000,
   },
   {
     id: "event-5",
-    title: "Noite de Stand-Up Comedy",
-    description:
-      "Os melhores comediantes de São Paulo em uma noite de muitas risadas. Open bar de chope artesanal.",
-    latitude: -23.5505,
-    longitude: -46.6333,
+    title: "Piseiro Fest com Tarcísio do Acordeon",
+    description: "A maior festa de piseiro do Nordeste com o rei do acordeon.",
+    latitude: -10.9472,
+    longitude: -37.0731,
     merchantId: "merchant-1",
-    startsAt: "2024-12-27T21:00:00Z",
-    endsAt: "2024-12-28T01:00:00Z",
+    startsAt: "2026-06-20T23:00:00Z",
+    endsAt: "2026-06-21T05:00:00Z",
     imageUrl:
-      "https://images.unsplash.com/photo-1527224538127-2104bb71c51b?w=800&h=500&fit=crop",
-    category: "Entretenimento",
+      "https://i0.wp.com/moraesdesigner.com.br/wp-content/uploads/2023/11/11.37-FORRO-NO-I.jpg?fit=1080%2C1350&ssl=1",
+    category: "Piseiro",
     price: 80,
-    attendees: 65,
-    maxAttendees: 100,
+    attendees: 2800,
+    maxAttendees: 4000,
   },
   {
     id: "event-6",
-    title: "Feira de Artesanato Local",
-    description:
-      "Apoie artesãos locais! Mais de 50 expositores com produtos únicos e autorais.",
-    latitude: -23.5614,
-    longitude: -46.6558,
-    merchantId: "merchant-2",
-    startsAt: "2024-12-28T10:00:00Z",
-    endsAt: "2024-12-28T18:00:00Z",
+    title: "Vem Pro Forró - Tarcísio do Acordeon & Mano Walter",
+    description: "Super duplo no Pátio de Eventos.",
+    latitude: -10.9472,
+    longitude: -37.0731,
+    merchantId: "merchant-1",
+    startsAt: "2026-07-30T22:00:00Z",
+    endsAt: "2026-07-31T04:00:00Z",
     imageUrl:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop",
-    category: "Feira",
-    price: 0,
-    attendees: 215,
-    maxAttendees: 400,
-  },
-  {
-    id: "event-7",
-    title: "Degustação de Cafés Especiais",
-    description:
-      "Prove cafés de diferentes regiões do Brasil. Inclui explicação sobre métodos de preparo.",
-    latitude: -23.5629,
-    longitude: -46.6698,
-    merchantId: "merchant-3",
-    startsAt: "2024-12-29T15:00:00Z",
-    endsAt: "2024-12-29T18:00:00Z",
-    imageUrl:
-      "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&h=500&fit=crop",
-    category: "Gastronomia",
-    price: 45,
-    attendees: 18,
-    maxAttendees: 25,
-  },
-  {
-    id: "event-8",
-    title: "Réveillon no Food Park",
-    description:
-      "Celebre a virada do ano com música ao vivo, comida incrível e fogos de artifício!",
-    latitude: -23.5667,
-    longitude: -46.6876,
-    merchantId: "merchant-4",
-    startsAt: "2024-12-31T20:00:00Z",
-    endsAt: "2025-01-01T04:00:00Z",
-    imageUrl:
-      "https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=800&h=500&fit=crop",
-    category: "Festa",
-    price: 200,
-    isLive: false,
-    attendees: 789,
-    maxAttendees: 1000,
+      "https://img.criativodahora.com.br/2023/12/criativo-658cf5f9889f5MjgvMTIvMjAyMyAwMWgxMw==.jpg",
+    category: "Forró",
+    price: 90,
+    attendees: 5200,
+    maxAttendees: 8000,
   },
 ];
 
 export const promotions: Promotion[] = [
   {
     id: "promo-1",
-    title: "2 por 1 em Cervejas Artesanais",
+    title: "Early Bird Forró Caju",
     eventId: "event-1",
     active: true,
-    discountText: "Compre uma cerveja e ganhe outra",
-    validUntil: "2024-12-20T23:59:00Z",
-    code: "JAZZ2X1",
+    discountText: "30% de desconto até 15/05",
+    validUntil: "2026-05-15T23:59:00Z",
+    code: "CAJU30",
   },
   {
     id: "promo-2",
-    title: "50% OFF na entrada",
+    title: "Ingresso Solidário",
     eventId: "event-2",
     active: true,
-    discountText: "Meia entrada para estudantes",
-    validUntil: "2025-01-18T21:00:00Z",
-    code: "ARTE50",
-  },
-  {
-    id: "promo-3",
-    title: "Café grátis no Workshop",
-    eventId: "event-3",
-    active: true,
-    discountText: "Café ilimitado durante o evento",
-    validUntil: "2024-12-22T17:00:00Z",
-  },
-  {
-    id: "promo-4",
-    title: "Combo Família",
-    eventId: "event-4",
-    active: true,
-    discountText: "4 pratos pelo preço de 3",
-    validUntil: "2024-12-23T22:00:00Z",
-    code: "FAMILIA4X3",
-  },
-  {
-    id: "promo-5",
-    title: "Early Bird Réveillon",
-    eventId: "event-8",
-    active: true,
-    discountText: "30% OFF comprando antecipado",
-    validUntil: "2024-12-25T23:59:00Z",
-    code: "REVEILLON30",
+    discountText: "1kg de alimento não perecível",
+    validUntil: "2025-05-28T23:59:00Z",
   },
 ];
 
@@ -372,45 +276,29 @@ export const userEvents: UserEvent[] = [
     userId: "user-1",
     eventId: "event-1",
     status: "CONFIRMED",
-    createdAt: "2024-12-15T10:00:00Z",
+    createdAt: "2025-05-20T10:00:00Z",
   },
   {
     id: "ue-2",
     userId: "user-1",
-    eventId: "event-3",
-    status: "CONFIRMED",
-    createdAt: "2024-12-16T14:30:00Z",
-  },
-  {
-    id: "ue-3",
-    userId: "user-1",
-    eventId: "event-8",
+    eventId: "event-4",
     status: "PENDING",
-    createdAt: "2024-12-17T09:15:00Z",
+    createdAt: "2025-05-22T14:30:00Z",
   },
 ];
 
 export const merchantMetrics: MerchantMetrics[] = [
   {
     merchantId: "merchant-1",
-    totalViews: 12547,
-    totalClicks: 3821,
-    totalBookings: 892,
-    weeklyViews: [1200, 1350, 1500, 1800, 2100, 2200, 2397],
-    weeklyClicks: [320, 380, 420, 510, 620, 680, 891],
-  },
-  {
-    merchantId: "merchant-2",
-    totalViews: 8934,
-    totalClicks: 2156,
-    totalBookings: 456,
-    weeklyViews: [900, 1050, 1200, 1300, 1400, 1484, 1600],
-    weeklyClicks: [200, 250, 300, 350, 380, 326, 350],
+    totalViews: 89500,
+    totalClicks: 23400,
+    totalBookings: 12450,
+    weeklyViews: [8200, 12400, 18900, 24500, 31200],
+    weeklyClicks: [2100, 3400, 5200, 6800, 8900],
   },
 ];
 
-// Funções auxiliares para simular queries
-
+// Funções auxiliares (mantidas)
 export function getEventById(id: string): Event | undefined {
   return events.find((e) => e.id === id);
 }
@@ -450,9 +338,7 @@ export function getMetricsByMerchant(
 }
 
 export function formatDistance(km: number): string {
-  if (km < 1) {
-    return `${Math.round(km * 1000)}m`;
-  }
+  if (km < 1) return `${Math.round(km * 1000)}m`;
   return `${km.toFixed(1)}km`;
 }
 
