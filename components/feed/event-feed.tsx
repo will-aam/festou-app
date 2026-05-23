@@ -1,7 +1,7 @@
 "use client";
 
 import { events } from "@/lib/mock-data";
-import { PostCard } from "./post-card"; // Ajuste o caminho se necessário!
+import { PostCard } from "./post-card";
 
 // Lista de distâncias simuladas
 const distances = [
@@ -51,13 +51,13 @@ const postMeta = [
 export function EventFeed() {
   return (
     <div className="px-4 space-y-4">
-      {/* Header da seção */}
+      {/* Header da seção (Mantém o alinhamento) */}
       <div className="flex items-center justify-between mt-2">
         <h2 className="text-lg font-bold text-foreground">Acontecendo Agora</h2>
       </div>
 
-      {/* Feed de cards */}
-      <div className="space-y-6">
+      {/* Feed de cards (Usa -mx-4 no mobile para colar nas bordas laterais, md:mx-0 volta ao normal no PC) */}
+      <div className="-mx-4 md:mx-0 space-y-6 md:space-y-8 pb-8">
         {events.map((event, index) => {
           const meta = postMeta[index % postMeta.length];
           const dist = distances[index % distances.length];
